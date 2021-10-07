@@ -45,6 +45,7 @@ class App1 extends Component {
             employ: false,
             id: this.maxId++
         }
+        
         this.setState(({data}) => {
             const newArr = [...data, newItem];
             return {
@@ -67,19 +68,40 @@ class App1 extends Component {
     }
 
     onToggleRise = (id) => {
-        console.log(`Rise this ${id}`)
+        console.log (`Increase this ${id}`)
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id === id) {
+                    return {...item, employ: !item.employ}
+                }
+                return item;
+            })
+        }))
+
     }
+
+
+  
+
 
     
 
     render() {
         const countEmployees = this.state.data.length;
+        
+        
+        const premiumEmployees = this.state.data.filter(item => item.increase).length;
+            
+        const starEmployees = this.state.data.filter(item => item.employ).length/2;
+       
 
         return (
             
             <div className="app">
                 <Appinfo 
                 countEmployees={countEmployees}
+                premiumem={premiumEmployees}
+                star1={starEmployees}
                 />
 
                 <div className="search-panel">
